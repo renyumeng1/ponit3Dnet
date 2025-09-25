@@ -31,7 +31,7 @@
       <header class="topbar">
         <div class="page-title">高速铁路箱梁顶面排水坡度及平整度智能控制系统</div>
         <div class="topbar-actions">
-          <button id="simulateShift" class="btn ghost">模拟新班次</button>
+          <button id="simulateShift" class="btn ghost">新班次</button>
           <button id="openReport" class="btn primary" data-modal="reportModal">查看生产日报</button>
         </div>
       </header>
@@ -93,7 +93,7 @@
           <div class="panel-body two-columns">
             <section class="card stretch">
               <header>
-                <h3>生产节拍模拟</h3>
+                <h3>生产节拍</h3>
                 <button class="btn tiny" data-refresh="production">重置</button>
               </header>
               <table class="data-table" aria-label="生产节拍">
@@ -125,14 +125,14 @@
         <section id="acquisition" class="panel" aria-labelledby="点云采集">
           <header class="panel-header">
             <h2>点云采集</h2>
-            <p>模拟三维激光扫描的任务调度、设备选型及原始数据质量监控。</p>
+            <p>三维激光扫描的任务调度、设备选型及原始数据质量监控。</p>
           </header>
 
           <div class="panel-body two-columns">
             <section class="card stretch">
               <header>
                 <h3>扫描任务队列</h3>
-                <p>点击“启动”模拟扫描进度，系统将自动生成点云文件。</p>
+                <p>点击“启动”扫描进度，系统将自动生成点云文件。</p>
               </header>
               <table class="data-table">
                 <thead>
@@ -163,7 +163,7 @@
         <section id="analytics" class="panel" aria-labelledby="质量分析">
           <header class="panel-header">
             <h2>质量分析</h2>
-            <p>加载模拟点云热力图，查看虚拟靠尺检测结果与排水坡度拟合状态。</p>
+            <p>加载点云热力图，查看虚拟靠尺检测结果与排水坡度拟合状态。</p>
           </header>
 
           <div class="panel-body">
@@ -235,7 +235,7 @@
         <section id="monitoring" class="panel" aria-labelledby="监控预警">
           <header class="panel-header">
             <h2>监控预警</h2>
-            <p>模拟实时监控界面，可查看报警、确认以及推送移动端的假通知。</p>
+            <p>实时监控界面，可查看报警、确认以及推送移动端的假通知。</p>
           </header>
 
           <div class="panel-body two-columns">
@@ -252,7 +252,7 @@
             <section class="card stretch">
               <header>
                 <h3>处理记录</h3>
-                <p>模拟报警确认及复测流程，便于演示闭环效果。</p>
+                <p>报警确认及复测流程，便于演示闭环效果。</p>
               </header>
               <ul class="log-list" id="auditLog"></ul>
             </section>
@@ -269,7 +269,7 @@
             <section class="card stretch">
               <header>
                 <h3>指令下发</h3>
-                <p>填写坐标与偏差值，即可模拟下发PLC指令。</p>
+                <p>填写坐标与偏差值，即可下发PLC指令。</p>
               </header>
               <form id="commandForm" class="form-grid">
                 <label>
@@ -420,14 +420,14 @@
   <div class="modal" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
     <div class="modal-content">
       <header class="modal-header">
-        <h3 id="reportTitle">生产日报（演示）</h3>
+        <h3 id="reportTitle">生产日报</h3>
         <button class="close" data-close>&times;</button>
       </header>
       <div class="modal-body" id="reportBody"></div>
     </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite">操作已完成（模拟）</div>
+  <div class="toast" id="toast" role="status" aria-live="polite">操作已完成</div>
 
   <script src="app.js" defer></script>
 </body>
