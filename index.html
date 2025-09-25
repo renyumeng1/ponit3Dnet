@@ -119,6 +119,61 @@
               <canvas id="trendChart" width="480" height="240" role="img" aria-label="指标趋势"></canvas>
             </section>
           </div>
+
+          <section class="card narrative-card">
+            <header>
+              <h3>研发背景与价值概览</h3>
+              <p>通过选项卡梳理文档中的痛点、关键技术、系统架构与落地成效，方便演示讲解。</p>
+            </header>
+            <div class="tab-group" role="tablist" aria-label="文档要点">
+              <button role="tab" aria-selected="true" class="tab active" data-tab="painpoints">2.1 传统工艺痛点</button>
+              <button role="tab" aria-selected="false" class="tab" data-tab="technologies">2.2 关键技术</button>
+              <button role="tab" aria-selected="false" class="tab" data-tab="modules">2.3 系统模块</button>
+              <button role="tab" aria-selected="false" class="tab" data-tab="effects">2.4 应用效果</button>
+              <button role="tab" aria-selected="false" class="tab" data-tab="summary">2.5 小结</button>
+            </div>
+            <div class="tab-panels">
+              <article class="tab-panel active" id="tab-painpoints" role="tabpanel">
+                <h4>传统箱梁顶面平整度控制的局限</h4>
+                <ul>
+                  <li><strong>测量工具原始：</strong>依赖靠尺与塞尺进行抽检，只能得到局部线状数据，难以发现长波不平顺或细微凹凸。</li>
+                  <li><strong>人工作业低效：</strong>整平、检测完全依赖经验和体力，施工需频繁停工测量，导致节拍被动、效率低下。</li>
+                  <li><strong>质量控制滞后：</strong>“先施工后检测”缺乏实时反馈，初凝后才暴露缺陷，不得不返工甚至报废。</li>
+                </ul>
+              </article>
+              <article class="tab-panel" id="tab-technologies" role="tabpanel" hidden>
+                <h4>研发阶段的三大关键技术</h4>
+                <ul>
+                  <li><strong>高精度点云：</strong>通过地面三维激光扫描仪获取毫米级三维数据，解决传统抽检盲区问题。</li>
+                  <li><strong>质量指标体系：</strong>以平整度、排水坡度、相对/绝对高程等标准作为质量约束，形成验收闭环。</li>
+                  <li><strong>AI 算法链路：</strong>包含噪声剔除、体素降采样、虚拟靠尺遍历与最小二乘拟合，实现自动化解算。</li>
+                </ul>
+                <p class="note">右侧“点云采集”“质量分析”等模块即基于这些关键技术搭建的演示流程。</p>
+              </article>
+              <article class="tab-panel" id="tab-modules" role="tabpanel" hidden>
+                <h4>智能控制系统四大模块</h4>
+                <ol>
+                  <li><strong>数据采集：</strong>三维激光扫描快速获取箱梁表面点云。</li>
+                  <li><strong>数据处理：</strong>工业计算机完成点云预处理、拟合与指标解算。</li>
+                  <li><strong>实时监控：</strong>可视化热力图、报警推送与阈值预警。</li>
+                  <li><strong>闭环控制：</strong>将偏差信息转为 PLC 指令，驱动整平设备自动调整。</li>
+                </ol>
+              </article>
+              <article class="tab-panel" id="tab-effects" role="tabpanel" hidden>
+                <h4>与传统工艺对比的收益</h4>
+                <ul>
+                  <li>平整度优良率由 <strong>75%-85%</strong> 提升至 <strong>98%以上</strong>，坡度合格率达 <strong>99%</strong>。</li>
+                  <li>全量扫描 + 即时分析使单榀梁检测时间缩短至 <strong>5-10 分钟</strong>，节拍效率提升约 60%。</li>
+                  <li>闭环调平将返工率降至 <strong>2% 以下</strong>，节省材料与人工成本。</li>
+                </ul>
+              </article>
+              <article class="tab-panel" id="tab-summary" role="tabpanel" hidden>
+                <h4>小结与可推广价值</h4>
+                <p>系统以“感知—分析—决策—执行—复扫”的闭环控制为核心，将毫米级精度贯穿施工全过程。</p>
+                <p>结合 IoT、数字孪生等技术，可扩展至桥梁、路面、大坝等对表面精度要求极高的场景，具备行业示范意义。</p>
+              </article>
+            </div>
+          </section>
         </section>
 
         <section id="acquisition" class="panel" aria-labelledby="点云采集">

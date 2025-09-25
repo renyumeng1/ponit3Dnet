@@ -34,6 +34,28 @@ navButtons.forEach(btn => {
   });
 });
 
+const tabs = Array.from(document.querySelectorAll('.tab-group .tab'));
+const tabPanels = Array.from(document.querySelectorAll('.tab-panel'));
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const target = tab.dataset.tab;
+    if (!target) return;
+    tabs.forEach(button => {
+      button.classList.remove('active');
+      button.setAttribute('aria-selected', 'false');
+    });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+
+    tabPanels.forEach(panel => {
+      const isTarget = panel.id === `tab-${target}`;
+      panel.classList.toggle('active', isTarget);
+      panel.toggleAttribute('hidden', !isTarget);
+    });
+  });
+});
+
 const toast = document.getElementById('toast');
 const showToast = (message = '操作已完成（模拟）') => {
   toast.textContent = message;
