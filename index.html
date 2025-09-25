@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>箱梁顶面智能控制前端系统</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主菜单">
+      <div class="brand">箱梁智能控制系统</div>
+      <nav>
+        <button class="nav-item active" data-target="#dashboard">总览驾驶舱</button>
+        <button class="nav-item" data-target="#acquisition">点云采集</button>
+        <button class="nav-item" data-target="#analytics">质量分析</button>
+        <button class="nav-item" data-target="#monitoring">监控预警</button>
+        <button class="nav-item" data-target="#control">闭环控制</button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="status-light online"></div>
+        <span>惠民西制梁场 · 在线</span>
+      </div>
+    </aside>
+
+    <div class="main-area">
+      <header class="topbar">
+        <div class="page-title">高速铁路箱梁顶面排水坡度及平整度智能控制系统</div>
+        <div class="topbar-actions">
+          <button id="simulateShift" class="btn ghost">模拟新班次</button>
+          <button id="openReport" class="btn primary" data-modal="reportModal">查看生产日报</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="dashboard" class="panel active" aria-labelledby="总览驾驶舱">
+          <header class="panel-header">
+            <h2>总览驾驶舱</h2>
+            <p>汇总今日制梁状态、质量指标与流程节拍，可随时刷新使用假数据进行演示。</p>
+          </header>
+
+          <div class="kpi-grid">
+            <article class="kpi-card" data-metric="flatness">
+              <header>
+                <h3>平整度优良率</h3>
+                <span class="tag">目标 ≥ 98%</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>最大偏差 <strong class="metric-peak">-- mm</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+            <article class="kpi-card" data-metric="slope">
+              <header>
+                <h3>排水坡度合格率</h3>
+                <span class="tag">目标 ≥ 99%</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>平均坡度 <strong class="metric-angle">--%</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+            <article class="kpi-card" data-metric="rework">
+              <header>
+                <h3>返工修补率</h3>
+                <span class="tag">目标 ≤ 2%</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>修补片数 <strong class="metric-count">--</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+            <article class="kpi-card" data-metric="efficiency">
+              <header>
+                <h3>整平检测周期</h3>
+                <span class="tag">目标 ≤ 70 min</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>效率提升 <strong class="metric-gain">--%</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+          </div>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>生产节拍模拟</h3>
+                <button class="btn tiny" data-refresh="production">重置</button>
+              </header>
+              <table class="data-table" aria-label="生产节拍">
+                <thead>
+                  <tr>
+                    <th>箱梁编号</th>
+                    <th>扫描状态</th>
+                    <th>分析状态</th>
+                    <th>闭环控制</th>
+                    <th>预计完工</th>
+                  </tr>
+                </thead>
+                <tbody id="productionTable"></tbody>
+              </table>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>指标趋势（最近 6 片梁）</h3>
+                <div class="chart-legend">
+                  <span><span class="dot flatness"></span>2m 平整度 (mm)</span>
+                  <span><span class="dot slope"></span>排水坡度 (%)</span>
+                </div>
+              </header>
+              <canvas id="trendChart" width="480" height="240" role="img" aria-label="指标趋势"></canvas>
+            </section>
+          </div>
+        </section>
+
+        <section id="acquisition" class="panel" aria-labelledby="点云采集">
+          <header class="panel-header">
+            <h2>点云采集</h2>
+            <p>模拟三维激光扫描的任务调度、设备选型及原始数据质量监控。</p>
+          </header>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>扫描任务队列</h3>
+                <p>点击“启动”模拟扫描进度，系统将自动生成点云文件。</p>
+              </header>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>测站</th>
+                    <th>箱梁编号</th>
+                    <th>扫描进度</th>
+                    <th>噪声率</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="scanTaskTable"></tbody>
+              </table>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>设备选型对比</h3>
+                <select id="scannerSelector" aria-label="激光扫描仪型号"></select>
+              </header>
+              <dl id="scannerInfo" class="info-grid"></dl>
+              <footer>
+                <p>选择不同型号即可展示最大测程、扫描速度、三维精度与噪声参数，便于演示选型逻辑。</p>
+              </footer>
+            </section>
+          </div>
+        </section>
+
+        <section id="analytics" class="panel" aria-labelledby="质量分析">
+          <header class="panel-header">
+            <h2>质量分析</h2>
+            <p>加载模拟点云热力图，查看虚拟靠尺检测结果与排水坡度拟合状态。</p>
+          </header>
+
+          <div class="panel-body">
+            <section class="card heatmap-card">
+              <header>
+                <h3>箱梁顶面热力图</h3>
+                <div class="heatmap-controls">
+                  <label>
+                    视图：
+                    <select id="heatmapMode">
+                      <option value="flatness">平整度偏差</option>
+                      <option value="slope">排水坡度</option>
+                      <option value="height">绝对高程</option>
+                    </select>
+                  </label>
+                  <label>
+                    阈值 (mm/%):
+                    <input type="range" min="2" max="10" value="4" id="heatmapThreshold" />
+                  </label>
+                  <span class="threshold-display">当前阈值：<strong id="thresholdValue">4</strong></span>
+                </div>
+              </header>
+              <canvas id="heatmap" width="720" height="320" role="img" aria-label="热力图"></canvas>
+              <footer class="heatmap-footer">
+                <div>
+                  <p>算法流水线</p>
+                  <ol class="stepper" id="pipelineStepper">
+                    <li class="active">统计离群点去除</li>
+                    <li>体素降采样</li>
+                    <li>虚拟靠尺遍历</li>
+                    <li>最小二乘拟合</li>
+                    <li>偏差热力图渲染</li>
+                  </ol>
+                </div>
+                <button class="btn ghost" id="runPipeline">重放流水线</button>
+              </footer>
+            </section>
+
+            <section class="card metrics-card">
+              <header>
+                <h3>指标解算结果</h3>
+              </header>
+              <div class="metric-table" role="table">
+                <div class="metric-row" role="row">
+                  <div class="metric-cell" role="cell">2m 平整度最大偏差</div>
+                  <div class="metric-cell" role="cell" id="metricFlatness">-- mm</div>
+                </div>
+                <div class="metric-row" role="row">
+                  <div class="metric-cell">平均排水坡度</div>
+                  <div class="metric-cell" id="metricSlope">-- %</div>
+                </div>
+                <div class="metric-row" role="row">
+                  <div class="metric-cell">相邻支撑层高差</div>
+                  <div class="metric-cell" id="metricRelative">-- mm</div>
+                </div>
+                <div class="metric-row" role="row">
+                  <div class="metric-cell">绝对高程偏差</div>
+                  <div class="metric-cell" id="metricAbsolute">-- mm</div>
+                </div>
+              </div>
+              <footer>
+                <button class="btn tiny" id="simulateAnalysis">重新解算</button>
+                <p>点击“重新解算”即刻展示基于假数据的解算结果。</p>
+              </footer>
+            </section>
+          </div>
+        </section>
+
+        <section id="monitoring" class="panel" aria-labelledby="监控预警">
+          <header class="panel-header">
+            <h2>监控预警</h2>
+            <p>模拟实时监控界面，可查看报警、确认以及推送移动端的假通知。</p>
+          </header>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>实时报警</h3>
+                <label class="switch">
+                  <input type="checkbox" id="toggleCritical" checked />
+                  <span>仅显示重要报警</span>
+                </label>
+              </header>
+              <ul class="alert-list" id="alertList" aria-live="polite"></ul>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>处理记录</h3>
+                <p>模拟报警确认及复测流程，便于演示闭环效果。</p>
+              </header>
+              <ul class="log-list" id="auditLog"></ul>
+            </section>
+          </div>
+        </section>
+
+        <section id="control" class="panel" aria-labelledby="闭环控制">
+          <header class="panel-header">
+            <h2>闭环控制</h2>
+            <p>通过假数据演示偏差指令、自动调平与复扫确认的全过程。</p>
+          </header>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>指令下发</h3>
+                <p>填写坐标与偏差值，即可模拟下发PLC指令。</p>
+              </header>
+              <form id="commandForm" class="form-grid">
+                <label>
+                  区域坐标
+                  <input type="text" name="position" placeholder="如：B3-02" required />
+                </label>
+                <label>
+                  偏差类型
+                  <select name="type" required>
+                    <option value="lower">局部凹陷（补浆）</option>
+                    <option value="higher">局部凸起（刮削）</option>
+                    <option value="slope">坡度调整</option>
+                  </select>
+                </label>
+                <label>
+                  调整量 (mm/%）
+                  <input type="number" name="value" step="0.1" min="0" max="10" required />
+                </label>
+                <label>
+                  执行设备
+                  <select name="device" required>
+                    <option value="scraper">刮板执行器</option>
+                    <option value="pump">补浆泵</option>
+                    <option value="vibrator">振捣单元</option>
+                  </select>
+                </label>
+                <button class="btn primary" type="submit">下发指令</button>
+                <button class="btn ghost" type="button" id="autoOptimize">一键自优化</button>
+              </form>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>执行反馈</h3>
+                <p>记录整平设备的动作反馈与复扫确认结果。</p>
+              </header>
+              <ul class="log-list" id="commandLog"></ul>
+            </section>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="modal" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="reportTitle">生产日报（演示）</h3>
+        <button class="close" data-close>&times;</button>
+      </header>
+      <div class="modal-body" id="reportBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">操作已完成（模拟）</div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
