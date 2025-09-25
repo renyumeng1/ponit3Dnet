@@ -3,514 +3,432 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>箱梁顶面排水坡度及平整度智能控制系统演示</title>
+  <title>箱梁顶面智能控制前端系统</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="hero" id="top">
-    <nav class="top-nav">
-      <div class="brand">Ponit 3D Net</div>
-      <button class="nav-toggle" aria-label="打开菜单">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links">
-        <li><a href="#overview">概览</a></li>
-        <li><a href="#challenges">传统痛点</a></li>
-        <li><a href="#tech">关键技术</a></li>
-        <li><a href="#modules">系统模块</a></li>
-        <li><a href="#deployment">现场应用</a></li>
-        <li><a href="#benefits">应用效果</a></li>
-      </ul>
-    </nav>
-    <div class="hero-content">
-      <div class="hero-text">
-        <span class="tag">演示界面 · 智能建造</span>
-        <h1>箱梁顶面排水坡度及平整度智能控制系统</h1>
-        <p>
-          将高精度三维点云、人工智能算法与自动化整平设备深度融合，构建从感知、分析、决策到执行的全流程闭环，让毫米级的几何控制变得高效、透明、可预见。
-        </p>
-        <div class="hero-actions">
-          <button class="primary" data-modal="demoModal">查看演示流程</button>
-          <button class="ghost" data-scroll="#tech">探索关键技术</button>
-        </div>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="主菜单">
+      <div class="brand">箱梁智能控制系统</div>
+      <nav>
+        <button class="nav-item active" data-target="#dashboard">总览驾驶舱</button>
+        <button class="nav-item" data-target="#acquisition">点云采集</button>
+        <button class="nav-item" data-target="#analytics">质量分析</button>
+        <button class="nav-item" data-target="#monitoring">监控预警</button>
+        <button class="nav-item" data-target="#control">闭环控制</button>
+        <button class="nav-item" data-target="#knowledge">知识库</button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="status-light online"></div>
+        <span>惠民西制梁场 · 在线</span>
       </div>
-      <div class="hero-visual">
-        <div class="beam">
-          <div class="scan-wave"></div>
-          <div class="scan-wave delay"></div>
-          <div class="heatmap" aria-hidden="true"></div>
-        </div>
-        <div class="stats-card">
-          <div>
-            <span class="label">平整度优良率</span>
-            <strong>98.6%</strong>
-          </div>
-          <div>
-            <span class="label">排水坡度合格率</span>
-            <strong>99.1%</strong>
-          </div>
-          <div>
-            <span class="label">返工率</span>
-            <strong class="good">↓ 1.8%</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+    </aside>
 
-  <main>
-    <section class="section intro" id="overview">
-      <div class="section-header">
-        <span class="tag">系统概览</span>
-        <h2>毫米级质量控制，从这里开始</h2>
-        <p>
-          演示系统聚焦高速铁路箱梁顶面排水坡度与平整度控制的完整流程，涵盖痛点洞察、数据来源、核心算法、智能预警以及闭环联动。以下界面旨在帮助参观者快速理解系统价值与关键能力。
-        </p>
-      </div>
-      <div class="highlights">
-        <article>
-          <h3>智能感知</h3>
-          <p>地面激光雷达快速采集箱梁顶面完整点云，实现对施工状态的高密度、无死角感知。</p>
-        </article>
-        <article>
-          <h3>实时分析</h3>
-          <p>AI算法自动剔除噪声、模拟虚拟靠尺、拟合排水坡度，秒级生成热力图与指标报告。</p>
-        </article>
-        <article>
-          <h3>闭环控制</h3>
-          <p>与整平装备联动，按坐标下发调整指令，形成“扫描-分析-修正-复核”的闭环。</p>
-        </article>
-      </div>
-    </section>
+    <div class="main-area">
+      <header class="topbar">
+        <div class="page-title">高速铁路箱梁顶面排水坡度及平整度智能控制系统</div>
+        <div class="topbar-actions">
+          <button id="simulateShift" class="btn ghost">模拟新班次</button>
+          <button id="openReport" class="btn primary" data-modal="reportModal">查看生产日报</button>
+        </div>
+      </header>
 
-    <section class="section split" id="challenges">
-      <div class="section-header">
-        <span class="tag">2.1 传统箱梁顶面平整度控制工艺存在的问题</span>
-        <h2>传统人工模式难以满足高标准</h2>
-        <p>下列模拟卡片展示了传统工艺在工具、作业方式与质量控制上的主要痛点，点击任意卡片可查看详细影响与场景插图。</p>
-      </div>
-      <div class="card-grid painpoints">
-        <div class="card" data-detail="detail-1">
-          <h3>测量工具原始</h3>
-          <p>依赖靠尺和塞尺，难以反映梁面整体形态，存在盲区与人为读数偏差。</p>
-          <span class="link">查看细节 →</span>
-        </div>
-        <div class="card" data-detail="detail-2">
-          <h3>作业效率低</h3>
-          <p>施工-测量-调整循环繁琐，人工经验决定质量，难以标准化。</p>
-          <span class="link">查看细节 →</span>
-        </div>
-        <div class="card" data-detail="detail-3">
-          <h3>质控滞后</h3>
-          <p>缺乏实时反馈，缺陷发现滞后，返工成本高，甚至导致报废。</p>
-          <span class="link">查看细节 →</span>
-        </div>
-      </div>
-      <aside class="detail-panel">
-        <div id="detail-1" class="detail active">
-          <h4>测量工具原始，精度不可控</h4>
-          <p>传统2米靠尺沿纵横向抽检，仅提供有限点位数据，无法复现完整曲面形态。不同检测人员的读数偏差可达数毫米，为轨道板铺设埋下隐患。</p>
-          <figure>
-            <img src="https://images.unsplash.com/photo-1582719471137-c3967ffb1c9c?auto=format&fit=crop&w=900&q=80" alt="传统靠尺检测示意" />
-            <figcaption>图2.1.1 传统靠尺检测示意图（演示图像）</figcaption>
-          </figure>
-        </div>
-        <div id="detail-2" class="detail">
-          <h4>劳动密集，效率低且不稳定</h4>
-          <p>整平依赖人工刮尺与抹刀操作，工序互相制约，测量需频繁停工。不同班组间质量差异大，难以满足流水化生产节拍。</p>
-          <figure>
-            <img src="https://images.unsplash.com/photo-1523419409543-0c1df022bddf?auto=format&fit=crop&w=900&q=80" alt="人工整平作业" />
-            <figcaption>图2.1.2 人工提浆整平作业（演示图像）</figcaption>
-          </figure>
-        </div>
-        <div id="detail-3" class="detail">
-          <h4>开环管理，返工风险高</h4>
-          <p>“先施工后检测”的模式导致缺陷在混凝土初凝后才暴露，后期打磨或修补不仅耗时费材，还会破坏混凝土致密层，影响耐久性。</p>
-          <figure>
-            <img src="https://images.unsplash.com/photo-1600850588393-8913ac05a0ac?auto=format&fit=crop&w=900&q=80" alt="返工修补" />
-            <figcaption>传统模式缺乏闭环控制，返工成本高。</figcaption>
-          </figure>
-        </div>
-      </aside>
-    </section>
+      <main>
+        <section id="dashboard" class="panel active" aria-labelledby="总览驾驶舱">
+          <header class="panel-header">
+            <h2>总览驾驶舱</h2>
+            <p>汇总今日制梁状态、质量指标与流程节拍，可随时刷新使用假数据进行演示。</p>
+          </header>
 
-    <section class="section" id="tech">
-      <div class="section-header">
-        <span class="tag">2.2 智能控制系统研发阶段的关键技术</span>
-        <h2>数据、指标、算法的三位一体</h2>
-        <p>通过交互式标签了解系统的三大核心技术环节及其关键要素。</p>
-      </div>
-      <div class="tabs" role="tablist">
-        <button class="tab active" data-tab="tab-pointcloud">高精度点云</button>
-        <button class="tab" data-tab="tab-metrics">关键指标</button>
-        <button class="tab" data-tab="tab-ai">AI算法</button>
-      </div>
-      <div class="tab-panels">
-        <div id="tab-pointcloud" class="tab-panel active">
-          <div class="panel-grid">
-            <div>
-              <h3>基础数据源：高精度三维点云</h3>
-              <p>地面三维激光扫描仪数分钟内获取数百万点，实现箱梁表面的毫厘级还原。通过非接触扫描，避免对新浇筑面造成扰动。</p>
-              <ul class="pill-list">
-                <li>全面覆盖，无测量盲区</li>
-                <li>非接触、高效率采集</li>
-                <li>毫米级测距精度</li>
-              </ul>
-            </div>
-            <div class="spec-card">
-              <h4>主流设备参数对比</h4>
-              <table>
+          <div class="kpi-grid">
+            <article class="kpi-card" data-metric="flatness">
+              <header>
+                <h3>平整度优良率</h3>
+                <span class="tag">目标 ≥ 98%</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>最大偏差 <strong class="metric-peak">-- mm</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+            <article class="kpi-card" data-metric="slope">
+              <header>
+                <h3>排水坡度合格率</h3>
+                <span class="tag">目标 ≥ 99%</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>平均坡度 <strong class="metric-angle">--%</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+            <article class="kpi-card" data-metric="rework">
+              <header>
+                <h3>返工修补率</h3>
+                <span class="tag">目标 ≤ 2%</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>修补片数 <strong class="metric-count">--</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+            <article class="kpi-card" data-metric="efficiency">
+              <header>
+                <h3>整平检测周期</h3>
+                <span class="tag">目标 ≤ 70 min</span>
+              </header>
+              <div class="kpi-value">--</div>
+              <footer>
+                <span>效率提升 <strong class="metric-gain">--%</strong></span>
+                <button class="link" data-refresh="metrics">刷新指标</button>
+              </footer>
+            </article>
+          </div>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>生产节拍模拟</h3>
+                <button class="btn tiny" data-refresh="production">重置</button>
+              </header>
+              <table class="data-table" aria-label="生产节拍">
                 <thead>
                   <tr>
-                    <th>型号</th>
-                    <th>最大测程</th>
-                    <th>扫描速度</th>
-                    <th>三维点精度</th>
+                    <th>箱梁编号</th>
+                    <th>扫描状态</th>
+                    <th>分析状态</th>
+                    <th>闭环控制</th>
+                    <th>预计完工</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Leica P50</td>
-                    <td>&gt; 1000 m</td>
-                    <td>1,000,000 点/秒</td>
-                    <td>±1.2 mm</td>
-                  </tr>
-                  <tr>
-                    <td>Trimble X7</td>
-                    <td>80 m</td>
-                    <td>500,000 点/秒</td>
-                    <td>±2.0 mm</td>
-                  </tr>
-                  <tr>
-                    <td>FARO S350</td>
-                    <td>350 m</td>
-                    <td>976,000 点/秒</td>
-                    <td>±1.0 mm</td>
-                  </tr>
-                </tbody>
+                <tbody id="productionTable"></tbody>
               </table>
-              <p class="note">※ 数据为演示用途，可根据项目实际配置调整。</p>
-            </div>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>指标趋势（最近 6 片梁）</h3>
+                <div class="chart-legend">
+                  <span><span class="dot flatness"></span>2m 平整度 (mm)</span>
+                  <span><span class="dot slope"></span>排水坡度 (%)</span>
+                </div>
+              </header>
+              <canvas id="trendChart" width="480" height="240" role="img" aria-label="指标趋势"></canvas>
+            </section>
           </div>
-        </div>
-        <div id="tab-metrics" class="tab-panel">
-          <div class="panel-grid">
-            <div>
-              <h3>关键质量指标：平整度与排水坡度</h3>
-              <p>平整度衡量局部起伏，排水坡度决定整体排水性能，两者协同保障轨道板铺设与结构耐久。</p>
-              <div class="badge-grid">
-                <div>
-                  <span class="badge">2 m</span>
-                  <p>任意2米高差 ≤ 4 mm</p>
+        </section>
+
+        <section id="acquisition" class="panel" aria-labelledby="点云采集">
+          <header class="panel-header">
+            <h2>点云采集</h2>
+            <p>模拟三维激光扫描的任务调度、设备选型及原始数据质量监控。</p>
+          </header>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>扫描任务队列</h3>
+                <p>点击“启动”模拟扫描进度，系统将自动生成点云文件。</p>
+              </header>
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>测站</th>
+                    <th>箱梁编号</th>
+                    <th>扫描进度</th>
+                    <th>噪声率</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="scanTaskTable"></tbody>
+              </table>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>设备选型对比</h3>
+                <select id="scannerSelector" aria-label="激光扫描仪型号"></select>
+              </header>
+              <dl id="scannerInfo" class="info-grid"></dl>
+              <footer>
+                <p>选择不同型号即可展示最大测程、扫描速度、三维精度与噪声参数，便于演示选型逻辑。</p>
+              </footer>
+            </section>
+          </div>
+        </section>
+
+        <section id="analytics" class="panel" aria-labelledby="质量分析">
+          <header class="panel-header">
+            <h2>质量分析</h2>
+            <p>加载模拟点云热力图，查看虚拟靠尺检测结果与排水坡度拟合状态。</p>
+          </header>
+
+          <div class="panel-body">
+            <section class="card heatmap-card">
+              <header>
+                <h3>箱梁顶面热力图</h3>
+                <div class="heatmap-controls">
+                  <label>
+                    视图：
+                    <select id="heatmapMode">
+                      <option value="flatness">平整度偏差</option>
+                      <option value="slope">排水坡度</option>
+                      <option value="height">绝对高程</option>
+                    </select>
+                  </label>
+                  <label>
+                    阈值 (mm/%):
+                    <input type="range" min="2" max="10" value="4" id="heatmapThreshold" />
+                  </label>
+                  <span class="threshold-display">当前阈值：<strong id="thresholdValue">4</strong></span>
                 </div>
+              </header>
+              <canvas id="heatmap" width="720" height="320" role="img" aria-label="热力图"></canvas>
+              <footer class="heatmap-footer">
                 <div>
-                  <span class="badge">±2 mm</span>
-                  <p>相邻支撑层高差控制</p>
+                  <p>算法流水线</p>
+                  <ol class="stepper" id="pipelineStepper">
+                    <li class="active">统计离群点去除</li>
+                    <li>体素降采样</li>
+                    <li>虚拟靠尺遍历</li>
+                    <li>最小二乘拟合</li>
+                    <li>偏差热力图渲染</li>
+                  </ol>
                 </div>
-                <div>
-                  <span class="badge">±10 mm</span>
-                  <p>绝对高程偏差范围</p>
+                <button class="btn ghost" id="runPipeline">重放流水线</button>
+              </footer>
+            </section>
+
+            <section class="card metrics-card">
+              <header>
+                <h3>指标解算结果</h3>
+              </header>
+              <div class="metric-table" role="table">
+                <div class="metric-row" role="row">
+                  <div class="metric-cell" role="cell">2m 平整度最大偏差</div>
+                  <div class="metric-cell" role="cell" id="metricFlatness">-- mm</div>
                 </div>
-                <div>
-                  <span class="badge">2% ±0.5%</span>
-                  <p>横向排水坡度目标</p>
+                <div class="metric-row" role="row">
+                  <div class="metric-cell">平均排水坡度</div>
+                  <div class="metric-cell" id="metricSlope">-- %</div>
+                </div>
+                <div class="metric-row" role="row">
+                  <div class="metric-cell">相邻支撑层高差</div>
+                  <div class="metric-cell" id="metricRelative">-- mm</div>
+                </div>
+                <div class="metric-row" role="row">
+                  <div class="metric-cell">绝对高程偏差</div>
+                  <div class="metric-cell" id="metricAbsolute">-- mm</div>
+                </div>
+              </div>
+              <footer>
+                <button class="btn tiny" id="simulateAnalysis">重新解算</button>
+                <p>点击“重新解算”即刻展示基于假数据的解算结果。</p>
+              </footer>
+            </section>
+          </div>
+        </section>
+
+        <section id="monitoring" class="panel" aria-labelledby="监控预警">
+          <header class="panel-header">
+            <h2>监控预警</h2>
+            <p>模拟实时监控界面，可查看报警、确认以及推送移动端的假通知。</p>
+          </header>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>实时报警</h3>
+                <label class="switch">
+                  <input type="checkbox" id="toggleCritical" checked />
+                  <span>仅显示重要报警</span>
+                </label>
+              </header>
+              <ul class="alert-list" id="alertList" aria-live="polite"></ul>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>处理记录</h3>
+                <p>模拟报警确认及复测流程，便于演示闭环效果。</p>
+              </header>
+              <ul class="log-list" id="auditLog"></ul>
+            </section>
+          </div>
+        </section>
+
+        <section id="control" class="panel" aria-labelledby="闭环控制">
+          <header class="panel-header">
+            <h2>闭环控制</h2>
+            <p>通过假数据演示偏差指令、自动调平与复扫确认的全过程。</p>
+          </header>
+
+          <div class="panel-body two-columns">
+            <section class="card stretch">
+              <header>
+                <h3>指令下发</h3>
+                <p>填写坐标与偏差值，即可模拟下发PLC指令。</p>
+              </header>
+              <form id="commandForm" class="form-grid">
+                <label>
+                  区域坐标
+                  <input type="text" name="position" placeholder="如：B3-02" required />
+                </label>
+                <label>
+                  偏差类型
+                  <select name="type" required>
+                    <option value="lower">局部凹陷（补浆）</option>
+                    <option value="higher">局部凸起（刮削）</option>
+                    <option value="slope">坡度调整</option>
+                  </select>
+                </label>
+                <label>
+                  调整量 (mm/%）
+                  <input type="number" name="value" step="0.1" min="0" max="10" required />
+                </label>
+                <label>
+                  执行设备
+                  <select name="device" required>
+                    <option value="scraper">刮板执行器</option>
+                    <option value="pump">补浆泵</option>
+                    <option value="vibrator">振捣单元</option>
+                  </select>
+                </label>
+                <button class="btn primary" type="submit">下发指令</button>
+                <button class="btn ghost" type="button" id="autoOptimize">一键自优化</button>
+              </form>
+            </section>
+            <section class="card stretch">
+              <header>
+                <h3>执行反馈</h3>
+                <p>记录整平设备的动作反馈与复扫确认结果。</p>
+              </header>
+              <ul class="log-list" id="commandLog"></ul>
+            </section>
+          </div>
+        </section>
+
+        <section id="knowledge" class="panel" aria-labelledby="知识库">
+          <header class="panel-header">
+            <h2>知识库</h2>
+            <p>整理自研究文档的要点，使用手风琴与标签页展示完整内容，方便讲解。</p>
+          </header>
+
+          <div class="panel-body knowledge">
+            <div class="accordion" id="knowledgeAccordion">
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">传统工艺存在的问题</button>
+                <div class="accordion-content">
+                  <ul>
+                    <li>测量工具原始：靠尺与塞尺只能获得离散数据，容易遗漏缓变长波不平顺与局部凹凸。</li>
+                    <li>人工效率低：施工与检测互相干扰，完全依赖经验，班组间质量差异大。</li>
+                    <li>质量控制滞后：先施工后检测，缺乏实时反馈，超差处理代价高甚至导致报废。</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">研发关键技术</button>
+                <div class="accordion-content">
+                  <p>系统以高精度三维点云为基础，关注平整度、排水坡度等指标，结合AI算法实现数据预处理、虚拟靠尺、平面拟合与热力图分析。</p>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">系统模块</button>
+                <div class="accordion-content">
+                  <ol>
+                    <li>高精度点云采集模块</li>
+                    <li>数据处理与分析模块</li>
+                    <li>实时监控与预警模块</li>
+                    <li>闭环反馈与自动控制模块</li>
+                  </ol>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false">现场应用与效果</button>
+                <div class="accordion-content">
+                  <p>在惠民西制梁场应用后，平整度优良率≥98%，排水坡度合格率≥99%，检测时间缩短至5-10分钟，返工率低于2%。</p>
                 </div>
               </div>
             </div>
-            <div class="spec-card">
-              <h4>验收标准（演示表）</h4>
-              <table>
-                <thead>
-                  <tr>
-                    <th>检测项目</th>
-                    <th>控制标准</th>
-                    <th>说明</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>表面平整度</td>
-                    <td>≤ 4 mm / 2 m</td>
-                    <td>虚拟靠尺全覆盖检测</td>
-                  </tr>
-                  <tr>
-                    <td>相对高程</td>
-                    <td>≤ 2 mm</td>
-                    <td>保证轨道板连续</td>
-                  </tr>
-                  <tr>
-                    <td>绝对高程</td>
-                    <td>±10 mm</td>
-                    <td>融入线路设计高程</td>
-                  </tr>
-                  <tr>
-                    <td>排水坡度</td>
-                    <td>2% ± 0.5%</td>
-                    <td>防止梁面积水</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div id="tab-ai" class="tab-panel">
-          <div class="panel-grid">
-            <div>
-              <h3>人工智能算法流水线</h3>
-              <p>从噪声清洗到特征提取，再到自动化指标计算和综合分析，算法链路构成系统的智能核心。</p>
-              <ol class="steps">
-                <li><strong>SOR去噪：</strong>统计离群点去除，提升数据纯净度。</li>
-                <li><strong>体素降采样：</strong>平衡精度与效率，保留关键特征。</li>
-                <li><strong>虚拟靠尺模拟：</strong>遍历梁面识别平整度超差。</li>
-                <li><strong>平面拟合：</strong>最小二乘计算排水坡度。</li>
-                <li><strong>热力图渲染：</strong>生成决策可视化与预警信息。</li>
-              </ol>
-            </div>
-            <div class="spec-card">
-              <h4>实时热力图（演示）</h4>
-              <div class="heatmap-demo">
-                <div class="tooltip" style="left: 32%; top: 28%;">
-                  <span>偏高 +2.1 mm</span>
+
+            <div class="knowledge-tabs">
+              <div class="tab-header">
+                <button class="tab-btn active" data-tab="tab-compare">传统对比</button>
+                <button class="tab-btn" data-tab="tab-benefit">效益总结</button>
+                <button class="tab-btn" data-tab="tab-outcome">成果产出</button>
+              </div>
+              <div class="tab-body">
+                <div id="tab-compare" class="tab-panel active">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>控制指标</th>
+                        <th>传统人工方法</th>
+                        <th>智能控制系统</th>
+                        <th>效果分析</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>平整度优良率</td>
+                        <td>75% - 85%</td>
+                        <td>≥ 98%</td>
+                        <td>消除人工误差，质量一致性提升</td>
+                      </tr>
+                      <tr>
+                        <td>排水坡度合格率</td>
+                        <td>≈ 90%</td>
+                        <td>≥ 99%</td>
+                        <td>全局平面拟合确保坡度准确</td>
+                      </tr>
+                      <tr>
+                        <td>单点最大高程偏差</td>
+                        <td>> 6 mm</td>
+                        <td>≤ 4 mm</td>
+                        <td>全覆盖检测避免遗漏</td>
+                      </tr>
+                      <tr>
+                        <td>返工修补率</td>
+                        <td>10% - 20%</td>
+                        <td>< 2%</td>
+                        <td>实时闭环控制消除风险</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="tooltip" style="left: 68%; top: 60%;">
-                  <span>偏低 -1.4 mm</span>
+                <div id="tab-benefit" class="tab-panel">
+                  <ul class="benefit-list">
+                    <li><strong>质量提升：</strong>毫米级控制贯穿施工全过程，保障无砟轨道铺设精度。</li>
+                    <li><strong>效率提升：</strong>单榀梁扫描与分析在10分钟内完成，支持流水线生产。</li>
+                    <li><strong>成本优化：</strong>返工率下降带来人力与材料双重节约。</li>
+                    <li><strong>可推广性：</strong>方案适用于桥梁、路面、大坝等多种混凝土工程。</li>
+                  </ul>
+                </div>
+                <div id="tab-outcome" class="tab-panel">
+                  <p>项目团队已完成核心专利申报、发表技术论文两篇，并总结形成专用施工工法，为土木工程智能化提供可复制经验。</p>
                 </div>
               </div>
-              <button class="secondary" data-modal="analysisModal">查看分析流程</button>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="modules">
-      <div class="section-header">
-        <span class="tag">2.3 智能控制系统核心模块</span>
-        <h2>信息物理系统的四大能力</h2>
-        <p>从高精度感知到自动化执行，模块间无缝衔接，形成可靠的闭环控制。</p>
-      </div>
-      <div class="module-flow">
-        <div class="module" data-status="active">
-          <h3>01 感知：点云采集</h3>
-          <p>激光扫描仪在黄金时间窗口内完成整榀箱梁扫描，生成标准点云数据集。</p>
-        </div>
-        <div class="module">
-          <h3>02 分析：数据处理</h3>
-          <p>现场工业服务器运行AI流水线，实现秒级指标计算与报告生成。</p>
-        </div>
-        <div class="module">
-          <h3>03 监控：实时预警</h3>
-          <p>三维可视化驾驶舱实时展示热力图，指标超限立即声光告警。</p>
-        </div>
-        <div class="module">
-          <h3>04 控制：闭环执行</h3>
-          <p>与整平机PLC联动，下发刮板高度、角度调整指令，完成自动修正。</p>
-        </div>
-      </div>
-      <div class="timeline">
-        <div class="timeline-track"></div>
-        <div class="timeline-card">
-          <h4>扫描启动</h4>
-          <time>00:00 - 00:05</time>
-          <p>完成设备布设校准，一键开始全覆盖扫描。</p>
-        </div>
-        <div class="timeline-card">
-          <h4>数据上传</h4>
-          <time>00:05 - 00:08</time>
-          <p>点云通过工业以太网直传分析服务器。</p>
-        </div>
-        <div class="timeline-card">
-          <h4>自动分析</h4>
-          <time>00:08 - 00:10</time>
-          <p>虚拟靠尺模拟、平面拟合与热力图生成。</p>
-        </div>
-        <div class="timeline-card">
-          <h4>指令下发</h4>
-          <time>00:10 - 00:12</time>
-          <p>PLC接收坐标与偏差值，驱动执行器完成微调。</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt" id="deployment">
-      <div class="section-header">
-        <span class="tag">2.3.2 现场部署</span>
-        <h2>惠民西制梁场部署概览</h2>
-        <p>以下交互式示意图展示系统在制梁场的部署节点与数据流向，点击节点查看角色职责。</p>
-      </div>
-      <div class="deployment-map">
-        <div class="node" style="left: 14%; top: 40%;" data-role="scanner">
-          <span>激光扫描站</span>
-        </div>
-        <div class="node" style="left: 45%; top: 20%;" data-role="server">
-          <span>数据处理中心</span>
-        </div>
-        <div class="node" style="left: 70%; top: 60%;" data-role="control">
-          <span>整平设备</span>
-        </div>
-        <div class="node" style="left: 38%; top: 70%;" data-role="quality">
-          <span>质量管理区</span>
-        </div>
-        <svg class="flow" viewBox="0 0 600 300" preserveAspectRatio="none">
-          <defs>
-            <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
-              <path d="M0,0 L0,6 L6,3 z" fill="currentColor"></path>
-            </marker>
-          </defs>
-          <path d="M100,160 C180,100 260,70 320,50" marker-end="url(#arrow)" />
-          <path d="M320,50 C420,70 460,130 500,180" marker-end="url(#arrow)" />
-          <path d="M500,180 C420,220 360,240 280,230" marker-end="url(#arrow)" />
-          <path d="M280,230 C200,220 150,200 120,180" marker-end="url(#arrow)" />
-        </svg>
-      </div>
-      <div class="deployment-info" id="deploymentInfo">
-        <h3>节点说明</h3>
-        <p>悬停或点击上方节点，了解该环节的职责与关注重点。</p>
-        <ul>
-          <li><strong>激光扫描站：</strong>固定测站自动完成扫描，确保数据稳定可靠。</li>
-          <li><strong>数据处理中心：</strong>部署AI流水线，提供实时指标与热力图。</li>
-          <li><strong>整平设备：</strong>接收闭环指令，按坐标精准执行调整。</li>
-          <li><strong>质量管理区：</strong>查看预警信息，审核指标并确认放行。</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section" id="benefits">
-      <div class="section-header">
-        <span class="tag">2.4 应用效果</span>
-        <h2>质量与效率的双重飞跃</h2>
-        <p>通过可视化对比，直观呈现智能控制系统与传统工艺在质量、效率与成本控制方面的提升。</p>
-      </div>
-      <div class="benefit-grid">
-        <div class="comparison-card">
-          <h3>质量指标对比</h3>
-          <div class="compare-bars">
-            <div class="bar">
-              <span>平整度优良率</span>
-              <div><span data-value="82">传统 82%</span><span data-value="98" class="highlight">智能 98%</span></div>
-            </div>
-            <div class="bar">
-              <span>排水坡度合格率</span>
-              <div><span data-value="90">传统 90%</span><span data-value="99" class="highlight">智能 99%</span></div>
-            </div>
-            <div class="bar">
-              <span>返工修补率</span>
-              <div><span data-value="15">传统 15%</span><span data-value="2" class="highlight">智能 2%</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="comparison-card">
-          <h3>效率指标对比</h3>
-          <ul class="metric-list">
-            <li>
-              <strong>单榀梁检测时间</strong>
-              <span>传统：1-2 小时 → 智能：5-10 分钟</span>
-            </li>
-            <li>
-              <strong>整平作业时间</strong>
-              <span>传统：2-3 小时 → 智能：1-1.5 小时</span>
-            </li>
-            <li>
-              <strong>质量问题发现周期</strong>
-              <span>传统：滞后 → 智能：实时</span>
-            </li>
-          </ul>
-        </div>
-        <div class="comparison-card">
-          <h3>成果沉淀</h3>
-          <p>项目研发成果形成专利、论文与工法等知识资产，为行业推广奠定基础。</p>
-          <ul class="achievement">
-            <li>核心专利 <span class="badge">1项</span></li>
-            <li>技术论文 <span class="badge">2篇</span></li>
-            <li>专用施工工法 <span class="badge">1部</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="section outro">
-      <div class="callout">
-        <h2>迈向数字孪生的智慧制梁场</h2>
-        <p>
-          随着物联网与机器学习的深度融合，系统将进一步实现对“人、机、料、法、环”的全要素感知与预测调度，构建真正的数字孪生体，为智慧建造提供持续动能。
-        </p>
-        <div class="hero-actions">
-          <button class="primary" data-modal="contactModal">预约线下演示</button>
-          <a class="ghost" href="#top">返回顶部</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>© 2024 Ponit 3D Net · 智能箱梁施工演示平台</p>
-  </footer>
-
-  <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
-    <div class="modal-content">
-      <button class="close" aria-label="关闭" data-close>&times;</button>
-      <h3 id="demoTitle">演示流程</h3>
-      <ol>
-        <li>启动激光扫描，自动生成箱梁顶面点云。</li>
-        <li>算法流水线自动完成去噪、分割与虚拟靠尺模拟。</li>
-        <li>可视化界面生成热力图，并触发超差预警。</li>
-        <li>闭环控制模块向整平机下发精确调整指令。</li>
-        <li>复核扫描确认调整效果，生成验收报告。</li>
-      </ol>
+        </section>
+      </main>
     </div>
   </div>
 
-  <div class="modal" id="analysisModal" role="dialog" aria-modal="true" aria-labelledby="analysisTitle">
+  <div class="modal" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportTitle">
     <div class="modal-content">
-      <button class="close" aria-label="关闭" data-close>&times;</button>
-      <h3 id="analysisTitle">AI分析流程演示</h3>
-      <p>点击时间轴查看各算法阶段的状态变化。</p>
-      <div class="analysis-timeline">
-        <button data-stage="clean">数据清洗</button>
-        <button data-stage="sample">降采样</button>
-        <button data-stage="measure">指标计算</button>
-        <button data-stage="visual">热力图</button>
-        <button data-stage="feedback">反馈执行</button>
-      </div>
-      <div class="analysis-stage" id="analysisStage">
-        <h4>数据清洗</h4>
-        <p>统计离群点去除算法（SOR）剔除噪声点，确保数据纯净。</p>
-      </div>
+      <header class="modal-header">
+        <h3 id="reportTitle">生产日报（演示）</h3>
+        <button class="close" data-close>&times;</button>
+      </header>
+      <div class="modal-body" id="reportBody"></div>
     </div>
   </div>
 
-  <div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-    <div class="modal-content">
-      <button class="close" aria-label="关闭" data-close>&times;</button>
-      <h3 id="contactTitle">预约线下演示</h3>
-      <form class="fake-form">
-        <label>
-          <span>姓名</span>
-          <input type="text" placeholder="请输入您的姓名" />
-        </label>
-        <label>
-          <span>单位</span>
-          <input type="text" placeholder="请输入您的单位名称" />
-        </label>
-        <label>
-          <span>联系电话</span>
-          <input type="tel" placeholder="例如 138-0000-0000" />
-        </label>
-        <label>
-          <span>需求描述</span>
-          <textarea rows="3" placeholder="请简单描述您的需求（仅作演示）"></textarea>
-        </label>
-        <button type="button" class="primary" data-fake-submit>提交预约（演示）</button>
-      </form>
-      <p class="form-hint">此为演示交互，提交后会显示模拟反馈。</p>
-    </div>
-  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">操作已完成（模拟）</div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite">表单已提交（模拟），我们的团队将尽快联系您。</div>
-
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
